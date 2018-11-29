@@ -1,9 +1,18 @@
+# Indoor location mapper using low-energy Bluetooth
+# Author: Omar Metwally, MD
+# omar@analog.earth
+# Principal Investigator
+# A N A L O G  L A B S
+# License: Analog Labs (analog.earth)
+
 from bluepy.btle import Scanner, DefaultDelegate
 from time import sleep
 
 first_scan = []
 second_scan = []
 signal_strength = {}
+
+LOCATION_NAME = "8th floor, Elfiky Conference Room"
 
 class ScanDelegate(DefaultDelegate):
     def __init__(self):
@@ -16,6 +25,8 @@ class ScanDelegate(DefaultDelegate):
                 print("Received new data from", dev.addr)
 
 # Initial scan
+x = input("I will now scan nearby BLE devices.\n\nMake sure your phone has Bluetooth enabled and near the RPI.\n\nThis will take 10 seconds.\n\nPress ENTER to continue...")
+
 scanner = Scanner().withDelegate(ScanDelegate())
 devices = scanner.scan(10)
 
@@ -27,13 +38,7 @@ for dev in devices:
         if dev.addr not in signal_strength:
             signal_strength[ dev.addr ] = dev.rssi
 
-print("Now turn off Bluetooth...")
-sleep(1)
-x = None
-while True:
-    x = input('Press any key to continue: ')
-    if x:
-        break
+x = input("Ready for the second scan. This will take 10 seconds.\n\nTurn off your Bluetooth and press ENTER to continue...")
 
 # Second scan, with Bluetooth off
 scanner = Scanner().withDelegate(ScanDelegate())
@@ -98,8 +103,6 @@ while True:
             #print("  %s = %s" % (desc, value))
             if dev.addr == strongest_signal_addr:
                 print(dev.addr,' signal strength: ', dev.rssi)
-            else:
-                print(dev.addr,' is not ',strongest_signal_addr)
 
             if dev.addr is strongest_signal_addr:
                 print('Device: ', dev.addr)
