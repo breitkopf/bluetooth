@@ -24,6 +24,14 @@ class ScanDelegate(DefaultDelegate):
             elif isNewData:
                 print("Received new data from", dev.addr)
 
+device_name = input("Please name your phone (e.g. \"Oncology Attending\".\n\n")
+while True:
+    confirm = input("You entered "+device_name+". Would you like to use this name?")
+    if "y" in confirm.lower():
+        break
+    else:
+        device_name = input("Please name your phone (e.g. \"Oncology Attending\".\n\n")
+
 # Initial scan
 x = input("I will now scan nearby BLE devices.\n\nMake sure your phone has Bluetooth enabled and near the RPI.\n\nThis will take 10 seconds.\n\nPress ENTER to continue...")
 
