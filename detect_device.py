@@ -78,7 +78,7 @@ while True:
                 device_name = input("Please name your phone (e.g. \"Oncology Attending\".\n> ")
 
         # Initial scan
-        x = input("I will now scan nearby BLE devices.\nMake sure your phone has Bluetooth enabled and near the RPI.\nThis will take 10 seconds.\n\nPress ENTER to continue...\n")
+        x = input("I will now scan nearby BLE devices.\nMake sure your phone has Bluetooth enabled and place it beside the RPI.\nThis will take 10 seconds.\n\nPress ENTER to continue...\n")
 
         scanner = Scanner().withDelegate(ScanDelegate())
         devices = scanner.scan(10)
@@ -91,7 +91,7 @@ while True:
                 if dev.addr not in signal_strength:
                     signal_strength[ dev.addr ] = dev.rssi
 
-        x = input("  *  *  *\n\nReady for the second scan. This will take 10 seconds.\n\nTurn off your Bluetooth and press ENTER to continue...\n\n")
+        x = input("  *  *  *\n\nReady for the second scan. This will take 10 seconds.\n\nMove your phone as far away as possible from the scanner, then press ENTER to continue. Do not turn off your Bluetooth connection!\n\n")
 
         # Second scan, with Bluetooth off
         scanner = Scanner().withDelegate(ScanDelegate())
@@ -126,9 +126,9 @@ while True:
         strongest_signal_addr = None
         strongest_signal = None
 
-        print('enumerating signal_strength')
+        #print('enumerating signal_strength')
         for addr, signal in signal_strength.items():
-            print(addr,signal)
+            #print(addr,signal)
             if not strongest_signal:
                 strongest_signal_addr = addr
                 strongest_signal = signal
@@ -141,11 +141,12 @@ while True:
 
         print('Strongest signal is ',strongest_signal,' from device address ',strongest_signal_addr)
 
-        if len(discovered) > 0:
-            print('Discovery process revealed more than one device.')
+        if len(scan_targets.keys()) > 0:
             print('Saving strongest signal ',strongest_signal,' from device ',strongest_signal_addr)
+            if strongest_signal_addr not in scan_targets.keys():
+                scan_targets[ strongest_signal_addr ] = strongest_signal
             CURRENT_STATE = 2
-        elif len(discovered) == 0:
+        elif len(scan_targets.keys()) == 0:
             print('Discovery process revealed no devices. Please try again.')
             CURRENT_STATE = 0
 
@@ -172,8 +173,12 @@ while True:
 
                             # upload data
                             data = { 'location_name': LOCATION_NAME, 'ble_addr': dev.addr, 'signal': dev.rssi, 'alias': device_name }
-                            r = requests.post( "https://diy.analog.earth/fleetfox/default/api/bluetooth", data=data )
-                            print(r.status_code, r.text)
+                            print("Attempting to upload data to web server...")
+                            try:
+                                r = requests.post( "https://diy.analog.earth/fleetfox/default/api/bluetooth", data=data )
+                               # print(r.status_code, r.text)
+                            except:
+                                print("Unable to upload data. Are you online?")
 
                 sleep(10)
     elif CURRENT_STATE == 3:
