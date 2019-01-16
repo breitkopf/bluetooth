@@ -1,9 +1,11 @@
 # How to detect low energy Bluetooth signal using a RPI
-# Author: Omar N. Metwally, MD
-# omar@analog.earth
-# Principal Investigator
-# A N A L O G  L A B S
-# License: Analog Labs (analog.earth/license)
+```
+Author: Omar N. Metwally, MD
+omar@analog.earth
+Principal Investigator
+A N A L O G  L A B S
+License: Analog Labs (analog.earth/license)
+```
 
 
 ## Detect low-energy Bluetooth signal using a RPI
