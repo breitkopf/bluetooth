@@ -9,21 +9,22 @@ License: Analog Labs (analog.earth/license)
 
 
 ## Detect low-energy Bluetooth signal using a RPI
-Usage:  python3 detect_device.py
+Usage:  ```python3 detect_device.py```
 
 *detect_device.py* uploads BLE signal strength to a web server.
 
 Dependencies:
-* **requests** and **bluepy** Pythonmodules 
+* **requests** and **bluepy** Python modules 
 
 ## Contribute
-Please take a look at the [contribution documentation](https://github.com/simbel/simbel/blob/master/docs/CONTRIBUTING.md) for information on how to report bugs, suggest enhancements, and contribute code. If you or your organization use Fleet Fox to do something great, please share your experience! 
+Please take a look at the [contribution documentation](https://github.com/simbel/simbel/blob/master/docs/CONTRIBUTING.md) for information on how to report bugs, suggest enhancements, and contribute code. If you or your organization use this code to do something great, please share your experience! 
 
 ## Code of conduct
 In the interest of fostering an open and welcoming environment, we as contributors and maintainers pledge to making participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation. Read the full [Contributor Covenant](https://github.com/osmode/fleetfox/blob/master/docs/CODE_OF_CONDUCT.md). 
 
 ## License
 [Analog Labs License](https://analog.earth/license)
+
 Copyright 2018 - Present Omar N. Metwally (omar@analog.earth) 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: 
